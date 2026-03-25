@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="surface_bg">#F5F1E8</color>
+    <color name="card_bg">#FFFDFC</color>
+    <color name="card_stroke">#E7DDCF</color>
+    <color name="hero_bg">#17332D</color>
+    <color name="hero_stroke">#3A5B54</color>
+    <color name="hero_text">#FFF8EC</color>
+    <color name="hero_subtext">#C5D7D0</color>
+    <color name="hero_badge_text">#8ED9BA</color>
+    <color name="text_primary">#1E1C19</color>
+    <color name="text_secondary">#72685B</color>
+    <color name="accent_green">#2D8F63</color>
+    <color name="accent_orange">#D86B2B</color>
+    <color name="accent_blue">#3977B8</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+</resources>

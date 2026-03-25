@@ -1,0 +1,12 @@
+<resources>
+    <style name="Theme.Sports" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/hero_bg</item>
+        <item name="colorPrimaryVariant">@color/hero_bg</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/accent_green</item>
+        <item name="colorSecondaryVariant">@color/accent_green</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:statusBarColor">@color/hero_bg</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>
