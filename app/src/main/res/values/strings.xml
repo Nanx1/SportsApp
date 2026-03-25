@@ -1,21 +1,42 @@
 <resources>
-    <string name="app_name">SportPulse</string>
-    <string name="hero_badge">PERSONAL FITNESS DEMO</string>
-    <string name="hero_title">\u4ECA\u5929\u52A8\u4E86\u5417\uFF1F</string>
-    <string name="hero_subtitle">\u628A\u8FD0\u52A8\u8BB0\u5F55\u3001\u5361\u8DEF\u91CC\u4F30\u7B97\u3001BMI \u8BA1\u7B97\u548C\u8F7B\u6253\u5361\u653E\u8FDB\u4E00\u4E2A\u7B80\u6D01\u7684\u5B89\u5353\u9996\u9875\u91CC\u3002</string>
-    <string name="weekly_minutes">\u672C\u5468\u8BAD\u7EC3\u65F6\u957F</string>
-    <string name="weekly_calories">\u672C\u5468\u70ED\u91CF\u6D88\u8017</string>
-    <string name="goal_completion_label">\u672C\u5468\u76EE\u6807\u5B8C\u6210\u5EA6</string>
-    <string name="checkin_streak_label">\u8FDE\u7EED\u6253\u5361\u5929\u6570</string>
-    <string name="checkin_section_title">\u6BCF\u65E5\u6253\u5361</string>
-    <string name="checkin_section_desc">\u7B80\u6D01\u4E00\u70B9\uFF0C\u4F46\u8981\u6709\u8BB0\u5FC6\u70B9\u3002\u4ECA\u5929\u8FD8\u6D3B\u7740\uFF0C\u4E5F\u987A\u624B\u8FD0\u52A8\u4E00\u4E0B\u3002</string>
-    <string name="checkin_button_ready">\u4ECA\u5929\u6253\u5361</string>
-    <string name="checkin_button_done">\u4ECA\u65E5\u5DF2\u6253\u5361</string>
-    <string name="checkin_ready_message">\u8FD8\u6CA1\u6253\u5361\u3002\u6309\u4E00\u4E0B\uFF0C\u7ED9\u4ECA\u5929\u4E00\u4E2A\u5C0F\u5C0F\u7684\u4EA4\u4EE3\u3002</string>
-    <string name="checkin_done_message">\u4ECA\u5929\u5DF2\u7ECF\u6253\u8FC7\u5361\u4E86\uFF0C\u7EE7\u7EED\u4FDD\u6301\uFF0C\u522B\u8BA9 streak \u65AD\u6389\u3002</string>
+    <string name="app_name">我已急哭</string>
+
+    <string name="home_subtitle_new">\u4F60\u7684\u6253\u5361\u3001\u8FD0\u52A8\u8BB0\u5F55\u548C\u8DDF\u7EC3\u7EDF\u8BA1\u90FD\u5728\u8FD9\u91CC\u3002</string>
+    <string name="home_records_title">\u8FD0\u52A8\u8BB0\u5F55</string>
+    <string name="record_empty">\u6682\u65F6\u8FD8\u6CA1\u6709\u4FDD\u5B58\u7684\u8FD0\u52A8\u8BB0\u5F55\u3002</string>
+    <string name="record_meta_template">%1$s  |  %2$s kcal</string>
+    <string name="record_detail_dialog">%1$s\n\n\u65F6\u957F\uFF1A%2$s \u5206\u949F\n\u70ED\u91CF\uFF1A%3$s kcal\n\u8BB0\u5F55\u65F6\u95F4\uFF1A%4$s</string>
+    <string name="profile_missing_short">\u70B9\u51FB\u4E0B\u65B9\u201C\u6211\u7684\u8D44\u6599\u201D\u8865\u5168\u4FE1\u606F</string>
+    <string name="data_calc_title">\u6570\u636E\u8BA1\u7B97</string>
+    <string name="data_tool_bmi">BMI \u8BA1\u7B97</string>
+    <string name="data_tool_calorie">\u5361\u8DEF\u91CC\u4F30\u7B97</string>
+    <string name="data_tool_forecast">\u51CF\u80A5\u65E5\u671F\u9884\u4F30</string>
+
+    <string name="module_follow_title">\u8DDF\u7EC3</string>
+    <string name="module_run_title">\u8DD1\u6B65</string>
+    <string name="module_profile_title">\u6211\u7684\u8D44\u6599</string>
+
+    <string name="checkin_open_title">\u4ECA\u5929\u8FD0\u52A8\u4E86\u5417\uFF1F</string>
+    <string name="checkin_open_done_title">\u4ECA\u5929\u5DF2\u5B8C\u6210\u6253\u5361</string>
+    <string name="checkin_center_button">\u8FD0\u52A8\uFF01</string>
+    <string name="checkin_center_done_button">\u5DF2\u6253\u5361</string>
+    <string name="checkin_center_ready_message">\u70B9\u4E00\u4E0B\u4E2D\u95F4\u7684\u6309\u952E\uFF0C\u8BA9\u4ECA\u5929\u7684\u8FD0\u52A8\u6B63\u5F0F\u5F00\u59CB\u3002</string>
+    <string name="checkin_center_done_message">\u4ECA\u5929\u7684\u72B6\u6001\u5DF2\u7ECF\u8BB0\u4E0B\u4E86\uFF0C\u73B0\u5728\u53EF\u4EE5\u53BB\u8BB0\u5F55\u8FD0\u52A8\u6216\u8005\u5F00\u59CB\u8DD1\u6B65\u3002</string>
+    <string name="checkin_streak_label">\u8FDE\u7EED\u6253\u5361</string>
     <string name="checkin_repeat_toast">\u4ECA\u5929\u5DF2\u7ECF\u6253\u8FC7\u5361\u4E86</string>
-    <string name="checkin_success_toast">\u6253\u5361\u6210\u529F\uFF0C\u4ECA\u5929\u7B97\u4F60\u8D62\u4E00\u5C0F\u5C40</string>
-    <string name="total_checkin_label">\u7D2F\u8BA1\u6253\u5361\u6B21\u6570</string>
+    <string name="checkin_success_toast">\u6253\u5361\u6210\u529F</string>
+    <string name="enter_home">\u8FDB\u5165\u4E3B\u9875</string>
+    <string name="total_checkin_label">\u7D2F\u8BA1\u6253\u5361</string>
+
+    <string name="profile_title">\u9996\u6B21\u4F7F\u7528\u5148\u5B8C\u6210\u6863\u6848</string>
+    <string name="profile_subtitle">\u767B\u8BB0\u7528\u6237\u540D\u3001\u8EAB\u9AD8\u548C\u4F53\u91CD\u3002\u8FD9\u4E9B\u4FE1\u606F\u540E\u9762\u4ECD\u7136\u53EF\u4EE5\u968F\u65F6\u4FEE\u6539\u3002</string>
+    <string name="profile_name_hint">\u7528\u6237\u540D</string>
+    <string name="profile_save">\u4FDD\u5B58\u6863\u6848</string>
+    <string name="profile_invalid_toast">\u8BF7\u586B\u5199\u5B8C\u6574\u7684\u7528\u6237\u540D\u3001\u8EAB\u9AD8\u548C\u4F53\u91CD</string>
+    <string name="profile_saved_toast">\u8D44\u6599\u5DF2\u4FDD\u5B58</string>
+    <string name="profile_bmi_placeholder">BMI \u4F1A\u81EA\u52A8\u663E\u793A\u5728\u8FD9\u91CC</string>
+    <string name="profile_bmi_template">BMI %1$s  |  %2$s</string>
+
     <string name="bmi_section_title">BMI \u8BA1\u7B97</string>
     <string name="height_hint">\u8EAB\u9AD8\uFF08cm\uFF09</string>
     <string name="weight_hint">\u4F53\u91CD\uFF08kg\uFF09</string>
@@ -23,20 +44,74 @@
     <string name="bmi_default_result">\u8F93\u5165\u8EAB\u9AD8\u548C\u4F53\u91CD\u540E\uFF0C\u8FD9\u91CC\u4F1A\u663E\u793A BMI \u7ED3\u679C\u3002</string>
     <string name="bmi_invalid_hint">\u8BF7\u5148\u8F93\u5165\u6709\u6548\u7684\u8EAB\u9AD8\u548C\u4F53\u91CD\u3002</string>
     <string name="bmi_result_template">BMI %1$s\uFF0C\u5F53\u524D\u72B6\u6001\uFF1A%2$s</string>
-    <string name="calorie_section_title">\u5361\u8DEF\u91CC\u4F30\u7B97</string>
+
     <string name="sport_type_hint">\u8FD0\u52A8\u7C7B\u578B</string>
     <string name="duration_hint">\u8FD0\u52A8\u65F6\u957F\uFF08\u5206\u949F\uFF09</string>
     <string name="calculate_calorie">\u4F30\u7B97\u70ED\u91CF</string>
     <string name="calorie_default_result">\u9009\u62E9\u8FD0\u52A8\u7C7B\u578B\u5E76\u8F93\u5165\u4F53\u91CD\u3001\u65F6\u957F\u540E\uFF0C\u8FD9\u91CC\u4F1A\u663E\u793A\u70ED\u91CF\u4F30\u7B97\u3002</string>
     <string name="calorie_invalid_hint">\u8BF7\u586B\u5199\u6709\u6548\u7684\u4F53\u91CD\u548C\u8FD0\u52A8\u65F6\u957F\u3002</string>
     <string name="calorie_result_template">%1$s \u9884\u8BA1\u6D88\u8017 %2$s kcal</string>
-    <string name="stats_section_title">\u8FDB\u5EA6\u770B\u677F</string>
-    <string name="progress_exercise">\u8BAD\u7EC3\u6B21\u6570\u76EE\u6807\uFF1A\u672C\u5468\u5B8C\u6210 7 / 10</string>
-    <string name="progress_calorie">\u71C3\u8102\u76EE\u6807\uFF1A\u672C\u5468\u5B8C\u6210 620 / 1000</string>
-    <string name="progress_checkin">\u6253\u5361\u76EE\u6807\uFF1A\u672C\u5468\u5B8C\u6210 6 / 7</string>
-    <string name="video_section_title">\u89C6\u9891\u8DDF\u7EC3</string>
-    <string name="video_section_desc">\u6BD5\u8BBE\u7248\u6700\u9002\u5408\u5148\u505A\u8DF3\u8F6C\u65B9\u6848\u3002\u4F18\u5148\u5C1D\u8BD5 B \u7AD9 App\uFF0C\u6CA1\u88C5\u65F6\u4E5F\u53EF\u4EE5\u76F4\u63A5\u6253\u5F00\u7F51\u9875\u94FE\u63A5\u3002</string>
-    <string name="open_bilibili">\u6253\u5F00 B \u7AD9\u8DDF\u7EC3</string>
-    <string name="open_browser">\u6D4F\u89C8\u5668\u6253\u5F00\u89C6\u9891</string>
+
+    <string name="module_video_desc">\u8DF3\u8F6C\u5230 B \u7AD9\u5BA2\u6237\u7AEF\u540E\uFF0C\u5207\u56DE App \u624B\u52A8\u8F93\u5165\u8DDF\u7EC3\u65F6\u957F\uFF0C\u7CFB\u7EDF\u4F1A\u81EA\u52A8\u4F30\u7B97\u70ED\u91CF\u5E76\u4FDD\u5B58\u5230\u8FD0\u52A8\u6570\u636E\u3002</string>
+    <string name="video_t25">T25</string>
+    <string name="video_pamela">\u5E15\u6885\u62C9</string>
+    <string name="video_slim_leg">\u7626\u817F</string>
+    <string name="video_t25_detail">T25 \u7B2C\u4E00\u9636\u6BB5</string>
+    <string name="video_pamela_detail">10 \u5206\u949F\u66B4\u6C57\u6709\u6C27</string>
+    <string name="video_slim_leg_detail">Pamela 12 \u5206\u949F\u7626\u817F\u8BAD\u7EC3</string>
+    <string name="video_result_title">%1$s \u8DDF\u7EC3\u8BB0\u5F55</string>
+    <string name="video_follow_calories_template">\u4F30\u7B97\u70ED\u91CF\uFF1A%1$s kcal</string>
+    <string name="video_record_detail_template">%1$s  |  \u8DDF\u7EC3 %2$s \u5206\u949F</string>
     <string name="video_open_failed">\u6682\u65F6\u6CA1\u6709\u53EF\u5904\u7406\u8FD9\u4E2A\u94FE\u63A5\u7684\u5E94\u7528</string>
+    <string name="follow_duration_hint">\u624B\u52A8\u8F93\u5165\u8DDF\u7EC3\u65F6\u957F\uFF08\u5206\u949F\uFF09</string>
+    <string name="record_saved_toast">\u5DF2\u4FDD\u5B58\u5230\u8FD0\u52A8\u6570\u636E</string>
+
+    <string name="run_tab_desc">\u70B9\u51FB\u4E0B\u9762\u6309\u952E\u8FDB\u5165\u8DD1\u6B65\u754C\u9762\u3002\u8DD1\u6B65\u9875\u4FDD\u7559\u5927\u5F00\u59CB\u6309\u952E\u3001GPS \u8BB0\u5F55\u548C\u8DEF\u7EBF\u7ED8\u5236\u529F\u80FD\u3002</string>
+    <string name="run_open_outdoor">\u6237\u5916\u8DD1\u6B65</string>
+    <string name="run_open_indoor">\u5BA4\u5185\u8DD1\u6B65</string>
+    <string name="run_intro">\u6237\u5916\u6A21\u5F0F\u4F1A\u8C03\u7528 GPS \u8BB0\u5F55\u8DDD\u79BB\u548C\u8DEF\u7EBF\u3002\u5BA4\u5185\u6A21\u5F0F\u5219\u6309\u901F\u5EA6\u3001\u5761\u5EA6\u548C\u65F6\u957F\u7B80\u5355\u4F30\u7B97\u8DDD\u79BB\u4E0E\u6D88\u8017\u3002</string>
+    <string name="run_mode_outdoor">\u6237\u5916\u8DD1\u6B65</string>
+    <string name="run_mode_indoor">\u5BA4\u5185\u8DD1\u6B65</string>
+    <string name="run_status_idle">\u51C6\u5907\u5F00\u59CB</string>
+    <string name="run_status_tracking">\u6B63\u5728\u8BB0\u5F55\u8DD1\u6B65</string>
+    <string name="run_status_stopped">\u672C\u6B21\u8DD1\u6B65\u5DF2\u7ED3\u675F</string>
+    <string name="run_status_provider_missing">GPS \u6216\u7F51\u7EDC\u5B9A\u4F4D\u672A\u6253\u5F00</string>
+    <string name="run_distance_template">\u8DDD\u79BB\uFF1A%1$s km</string>
+    <string name="run_duration_template">\u65F6\u957F\uFF1A%1$d \u5206 %2$02d \u79D2</string>
+    <string name="run_position_template">\u5750\u6807\uFF1A%1$s, %2$s</string>
+    <string name="run_position_empty">\u6682\u65F6\u8FD8\u6CA1\u6709\u5750\u6807\u6570\u636E</string>
+    <string name="run_start">\u5F00\u59CB</string>
+    <string name="run_stop">\u957F\u6309\u505C\u6B62</string>
+    <string name="run_tracking_started">\u5DF2\u5F00\u59CB\u8DD1\u6B65\u8BB0\u5F55</string>
+    <string name="run_tracking_stopped">\u8DD1\u6B65\u8BB0\u5F55\u5DF2\u4FDD\u5B58</string>
+    <string name="run_permission_denied">\u6CA1\u6709\u5B9A\u4F4D\u6743\u9650\uFF0C\u65E0\u6CD5\u542F\u7528\u8DD1\u6B65\u8BB0\u5F55</string>
+    <string name="run_provider_missing">\u8BF7\u5148\u6253\u5F00 GPS \u6216\u7F51\u7EDC\u5B9A\u4F4D</string>
+    <string name="run_long_press_hint">\u8BF7\u957F\u6309\u201C\u505C\u6B62\u201D\u518D\u7ED3\u675F\u8BB0\u5F55</string>
+    <string name="run_record_title">\u6237\u5916\u8DD1\u6B65</string>
+    <string name="run_record_detail_template">\u8DDD\u79BB %1$s km  |  \u8F68\u8FF9\u70B9 %2$d \u4E2A</string>
+    <string name="run_record_detail_indoor_template">\u5BA4\u5185 %1$s km  |  %2$s km/h  |  \u5761\u5EA6 %3$s%%</string>
+    <string name="run_position_indoor">\u5BA4\u5185\u6A21\u5F0F\u4E0D\u8C03\u7528 GPS\uFF0C\u8DDD\u79BB\u7531\u901F\u5EA6\u548C\u65F6\u957F\u4F30\u7B97\u3002</string>
+    <string name="run_mode_label">\u6A21\u5F0F</string>
+    <string name="run_speed_hint">\u901F\u5EA6\uFF08km/h\uFF09</string>
+    <string name="run_incline_hint">\u5761\u5EA6\uFF08%\uFF09</string>
+    <string name="run_indoor_invalid">\u8BF7\u5148\u586B\u5199\u6709\u6548\u7684\u5BA4\u5185\u901F\u5EA6\u548C\u5761\u5EA6</string>
+    <string name="run_indoor_ready">\u5BA4\u5185\u8DD1\u6B65\u4F1A\u6839\u636E\u4F60\u8BBE\u5B9A\u7684\u901F\u5EA6\u548C\u5761\u5EA6\u52A8\u6001\u7D2F\u79EF\u8DDD\u79BB\u3002</string>
+
+    <string name="forecast_intro">\u8F93\u5165\u6BCF\u65E5\u6444\u5165\u70ED\u91CF\u540E\uFF0C\u7ED3\u5408 BMI \u548C\u5DF2\u4FDD\u5B58\u7684\u8FD0\u52A8\u8BB0\u5F55\uFF0C\u7B80\u5355\u9884\u4F30\u4F53\u91CD\u53D8\u5316\u8282\u594F\u3002</string>
+    <string name="forecast_current_weight">\u5F53\u524D\u4F53\u91CD\uFF08kg\uFF09</string>
+    <string name="forecast_target_weight">\u76EE\u6807\u4F53\u91CD\uFF08kg\uFF09</string>
+    <string name="forecast_intake_hint">\u6BCF\u65E5\u6444\u5165\u5361\u8DEF\u91CC\uFF08kcal\uFF09</string>
+    <string name="forecast_calculate">\u8BA1\u7B97\u9884\u4F30</string>
+    <string name="forecast_default_result">\u586B\u5199\u5F53\u524D\u4F53\u91CD\u3001\u8EAB\u9AD8\u3001\u76EE\u6807\u4F53\u91CD\u548C\u6BCF\u65E5\u6444\u5165\u540E\uFF0C\u8FD9\u91CC\u4F1A\u663E\u793A\u9884\u4F30\u7ED3\u679C\u3002</string>
+    <string name="forecast_invalid_hint">\u8BF7\u586B\u5199\u6709\u6548\u7684\u5F53\u524D\u4F53\u91CD\u3001\u8EAB\u9AD8\u3001\u6BCF\u65E5\u6444\u5165\u548C\u76EE\u6807\u4F53\u91CD\u3002</string>
+    <string name="forecast_no_deficit_result">\u6309\u5F53\u524D\u8F93\u5165\u8BA1\u7B97\uFF0C\u6BCF\u65E5\u51C0\u70ED\u91CF\u5DEE\u7EA6\u4E3A %1$s kcal\uFF0C\u6682\u65F6\u8FD8\u4E0D\u8DB3\u4EE5\u7A33\u5B9A\u51CF\u91CD\u3002</string>
+    <string name="forecast_result_template">\u76EE\u6807\u4F53\u91CD %1$s kg \u9884\u4F30\u53EF\u5728 %2$s \u5DE6\u53F3\u8FBE\u6210\u3002\n\u6BCF\u65E5\u51C0\u70ED\u91CF\u5DEE\u7EA6 %3$s kcal\uFF0C\u5176\u4E2D\u8FD1\u671F\u8FD0\u52A8\u8BB0\u5F55\u6298\u7B97\u6BCF\u65E5\u8FD0\u52A8\u6D88\u8017 %4$s kcal\u3002</string>
+
+    <string name="nav_data">\u6570\u636E</string>
+    <string name="nav_follow">\u8DDF\u7EC3</string>
+    <string name="nav_run">\u8DD1\u6B65</string>
+    <string name="nav_profile">\u6211\u7684\u8D44\u6599</string>
+    <string name="save_record">\u4FDD\u5B58</string>
+    <string name="dialog_cancel">\u53D6\u6D88</string>
+    <string name="dialog_ok">\u786E\u5B9A</string>
 </resources>

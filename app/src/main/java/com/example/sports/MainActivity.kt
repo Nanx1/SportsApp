@@ -1,210 +1,319 @@
 package com.example.sports
 
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Button
+import android.os.SystemClock
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.LayoutInflater
+import android.view.View
 import android.widget.EditText
-import android.widget.ProgressBar
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import java.time.LocalDate
-import java.time.temporal.ChronoUnit
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.Locale
 import kotlin.math.pow
 
 class MainActivity : AppCompatActivity() {
 
-    private val activities = listOf(
-        SportActivity("\u6B65\u884C", 3.5),
-        SportActivity("\u8DD1\u6B65", 9.8),
-        SportActivity("\u9A91\u884C", 7.5),
-        SportActivity("\u8DF3\u7EF3", 11.8),
-        SportActivity("\u529B\u91CF\u8BAD\u7EC3", 6.0),
-        SportActivity("\u5065\u8EAB\u64CD", 8.0)
-    )
+    private lateinit var dataSection: View
+    private lateinit var followSection: View
+    private lateinit var runSection: View
+    private lateinit var profileSection: View
+
+    private var currentWorkout: Workout? = null
+    private var startedAt: Long = 0L
+    private var awaitingReturn = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setupActivityDropdown()
-        bindBmiCalculator()
-        bindCalorieCalculator()
-        bindCheckIn()
-        bindVideoButtons()
-        renderDemoStats()
-    }
-
-    private fun setupActivityDropdown() {
-        val dropdown = findViewById<AutoCompleteTextView>(R.id.sportTypeInput)
-        val labels = activities.map { it.name }
-        dropdown.setAdapter(
-            ArrayAdapter(
-                this,
-                android.R.layout.simple_dropdown_item_1line,
-                labels
+        if (!SportsPrefs.hasProfile(this)) {
+            startActivity(
+                Intent(this, ProfileActivity::class.java).putExtra(
+                    ProfileActivity.EXTRA_FIRST_SETUP,
+                    true
+                )
             )
-        )
-        dropdown.setText(labels.first(), false)
+            finish()
+            return
+        }
+
+        dataSection = findViewById(R.id.dataSection)
+        followSection = findViewById(R.id.followSection)
+        runSection = findViewById(R.id.runSection)
+        profileSection = findViewById(R.id.profileSection)
+
+        setupBottomNav()
+        setupDataSection()
+        setupFollowSection()
+        setupRunSection()
+        setupProfileSection()
+        showSection(R.id.nav_data)
     }
 
-    private fun bindBmiCalculator() {
-        val heightInput = findViewById<EditText>(R.id.heightInput)
-        val weightInput = findViewById<EditText>(R.id.weightInput)
-        val resultView = findViewById<TextView>(R.id.bmiResult)
-        val action = findViewById<Button>(R.id.calculateBmiButton)
+    override fun onResume() {
+        super.onResume()
+        refreshDataSection()
+        refreshProfileSection()
 
-        action.setOnClickListener {
-            val heightCm = heightInput.text.toString().toDoubleOrNull()
-            val weightKg = weightInput.text.toString().toDoubleOrNull()
+        if (awaitingReturn && currentWorkout != null && startedAt > 0L) {
+            showFollowDurationDialog()
+            awaitingReturn = false
+            startedAt = 0L
+        }
+    }
 
-            if (heightCm == null || weightKg == null || heightCm <= 0 || weightKg <= 0) {
-                resultView.text = getString(R.string.bmi_invalid_hint)
-                return@setOnClickListener
+    private fun setupBottomNav() {
+        findViewById<BottomNavigationView>(R.id.bottomNavigation).setOnItemSelectedListener { item ->
+            showSection(item.itemId)
+            true
+        }
+    }
+
+    private fun showSection(itemId: Int) {
+        dataSection.visibility = if (itemId == R.id.nav_data) View.VISIBLE else View.GONE
+        runSection.visibility = if (itemId == R.id.nav_run) View.VISIBLE else View.GONE
+        followSection.visibility = if (itemId == R.id.nav_follow) View.VISIBLE else View.GONE
+        profileSection.visibility = if (itemId == R.id.nav_profile) View.VISIBLE else View.GONE
+    }
+
+    private fun setupDataSection() {
+        findViewById<View>(R.id.openBmiToolButton).setOnClickListener {
+            startActivity(Intent(this, BmiActivity::class.java))
+        }
+        findViewById<View>(R.id.openCalorieToolButton).setOnClickListener {
+            startActivity(Intent(this, CalorieActivity::class.java))
+        }
+        findViewById<View>(R.id.openForecastToolButton).setOnClickListener {
+            startActivity(Intent(this, WeightForecastActivity::class.java))
+        }
+        refreshDataSection()
+    }
+
+    private fun refreshDataSection() {
+        val profile = SportsPrefs.getProfile(this)
+        val state = SportsPrefs.getCheckInState(this)
+        findViewById<TextView>(R.id.homeNameValue).text =
+            profile?.name ?: getString(R.string.profile_missing_short)
+        findViewById<TextView>(R.id.homeTotalCheckInValue).text = state.totalCount.toString()
+        findViewById<TextView>(R.id.homeStreakValue).text = state.streak.toString()
+        renderRecords()
+    }
+
+    private fun renderRecords() {
+        val container = findViewById<LinearLayout>(R.id.recordsContainer)
+        container.removeAllViews()
+        val records = SportsPrefs.getRecords(this)
+        if (records.isEmpty()) {
+            container.addView(TextView(this).apply {
+                text = getString(R.string.record_empty)
+                textSize = 14f
+                setTextColor(getColor(R.color.text_secondary))
+            })
+            return
+        }
+
+        records.forEach { record ->
+            val card = layoutInflater.inflate(R.layout.item_record, container, false)
+            card.findViewById<TextView>(R.id.recordTitle).text = record.title
+            card.findViewById<TextView>(R.id.recordDetail).text = record.detail
+            card.findViewById<TextView>(R.id.recordMeta).text = getString(
+                R.string.record_meta_template,
+                record.createdAt,
+                String.format(Locale.getDefault(), "%.0f", record.calories)
+            )
+            card.setOnClickListener {
+                AlertDialog.Builder(this)
+                    .setTitle(record.title)
+                    .setMessage(
+                        getString(
+                            R.string.record_detail_dialog,
+                            record.detail,
+                            String.format(Locale.getDefault(), "%.1f", record.durationMinutes),
+                            String.format(Locale.getDefault(), "%.0f", record.calories),
+                            record.createdAt
+                        )
+                    )
+                    .setPositiveButton(R.string.dialog_ok, null)
+                    .show()
             }
+            container.addView(card)
+        }
+    }
 
-            val bmi = weightKg / (heightCm / 100).pow(2)
-            resultView.text = getString(
-                R.string.bmi_result_template,
-                formatOneDecimal(bmi),
-                classifyBmi(bmi)
+    private fun setupFollowSection() {
+        findViewById<View>(R.id.t25Button).setOnClickListener {
+            launchWorkout(
+                Workout(
+                    title = "T25",
+                    detail = getString(R.string.video_t25_detail),
+                    appUri = "bilibili://video/BV1w4411a7Bm",
+                    met = 8.5
+                )
+            )
+        }
+        findViewById<View>(R.id.pamelaButton).setOnClickListener {
+            launchWorkout(
+                Workout(
+                    title = "\u5E15\u6885\u62C9",
+                    detail = getString(R.string.video_pamela_detail),
+                    appUri = "bilibili://video/BV1R3411A7g4",
+                    met = 7.8
+                )
+            )
+        }
+        findViewById<View>(R.id.slimLegButton).setOnClickListener {
+            launchWorkout(
+                Workout(
+                    title = "\u7626\u817F\u8BAD\u7EC3",
+                    detail = getString(R.string.video_slim_leg_detail),
+                    appUri = "bilibili://video/BV1eK4y1t7zi",
+                    met = 5.8
+                )
             )
         }
     }
 
-    private fun bindCalorieCalculator() {
-        val weightInput = findViewById<EditText>(R.id.sportWeightInput)
-        val durationInput = findViewById<EditText>(R.id.durationInput)
-        val sportTypeInput = findViewById<AutoCompleteTextView>(R.id.sportTypeInput)
-        val resultView = findViewById<TextView>(R.id.calorieResult)
-        val action = findViewById<Button>(R.id.calculateCalorieButton)
-
-        action.setOnClickListener {
-            val weight = weightInput.text.toString().toDoubleOrNull()
-            val duration = durationInput.text.toString().toDoubleOrNull()
-            val selectedName = sportTypeInput.text.toString()
-            val sport = activities.find { it.name == selectedName } ?: activities.first()
-
-            if (weight == null || duration == null || weight <= 0 || duration <= 0) {
-                resultView.text = getString(R.string.calorie_invalid_hint)
-                return@setOnClickListener
-            }
-
-            val calories = 0.0175 * sport.met * weight * duration
-            resultView.text = getString(
-                R.string.calorie_result_template,
-                sport.name,
-                formatOneDecimal(calories)
-            )
-        }
-    }
-
-    private fun bindCheckIn() {
-        val prefs = getSharedPreferences("sports_demo", MODE_PRIVATE)
-        val checkInResult = findViewById<TextView>(R.id.checkInResult)
-        val streakView = findViewById<TextView>(R.id.streakValue)
-        val totalView = findViewById<TextView>(R.id.totalCheckInValue)
-        val action = findViewById<Button>(R.id.checkInButton)
-
-        fun refresh() {
-            val today = LocalDate.now()
-            val lastDate = prefs.getString(KEY_LAST_CHECK_IN_DATE, null)?.let(LocalDate::parse)
-            val currentStreak = prefs.getInt(KEY_STREAK, 0)
-            val totalCount = prefs.getInt(KEY_TOTAL_CHECK_IN, 0)
-            val alreadyCheckedIn = lastDate == today
-
-            streakView.text = currentStreak.toString()
-            totalView.text = totalCount.toString()
-            checkInResult.text = if (alreadyCheckedIn) {
-                getString(R.string.checkin_done_message)
-            } else {
-                getString(R.string.checkin_ready_message)
-            }
-            action.text = if (alreadyCheckedIn) {
-                getString(R.string.checkin_button_done)
-            } else {
-                getString(R.string.checkin_button_ready)
-            }
-        }
-
-        action.setOnClickListener {
-            val today = LocalDate.now()
-            val lastDate = prefs.getString(KEY_LAST_CHECK_IN_DATE, null)?.let(LocalDate::parse)
-            if (lastDate == today) {
-                Toast.makeText(this, R.string.checkin_repeat_toast, Toast.LENGTH_SHORT).show()
-                refresh()
-                return@setOnClickListener
-            }
-
-            val previousStreak = prefs.getInt(KEY_STREAK, 0)
-            val newStreak = when {
-                lastDate == null -> 1
-                ChronoUnit.DAYS.between(lastDate, today) == 1L -> previousStreak + 1
-                else -> 1
-            }
-            val totalCount = prefs.getInt(KEY_TOTAL_CHECK_IN, 0) + 1
-
-            prefs.edit()
-                .putString(KEY_LAST_CHECK_IN_DATE, today.toString())
-                .putInt(KEY_STREAK, newStreak)
-                .putInt(KEY_TOTAL_CHECK_IN, totalCount)
-                .apply()
-
-            Toast.makeText(this, R.string.checkin_success_toast, Toast.LENGTH_SHORT).show()
-            refresh()
-        }
-
-        refresh()
-    }
-
-    private fun bindVideoButtons() {
-        findViewById<Button>(R.id.openBilibiliButton).setOnClickListener {
-            openUrl("bilibili://search?keyword=%E5%B8%95%E6%A2%85%E6%8B%89%20%E7%87%83%E8%84%82")
-        }
-        findViewById<Button>(R.id.openBrowserButton).setOnClickListener {
-            openUrl("https://www.bilibili.com/video/BV1K4411d7ku")
-        }
-    }
-
-    private fun renderDemoStats() {
-        findViewById<TextView>(R.id.weeklyMinutesValue).text = "168"
-        findViewById<TextView>(R.id.weeklyCaloriesValue).text = "1240 kcal"
-        findViewById<TextView>(R.id.goalCompletionValue).text = "70%"
-
-        findViewById<ProgressBar>(R.id.exerciseProgress).progress = 70
-        findViewById<ProgressBar>(R.id.calorieProgress).progress = 62
-        findViewById<ProgressBar>(R.id.checkInProgress).progress = 85
-    }
-
-    private fun openUrl(url: String) {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+    private fun launchWorkout(workout: Workout) {
+        currentWorkout = workout
+        startedAt = SystemClock.elapsedRealtime()
+        awaitingReturn = true
         try {
-            startActivity(intent)
-        } catch (_: ActivityNotFoundException) {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(workout.appUri)))
+        } catch (_: Exception) {
+            awaitingReturn = false
             Toast.makeText(this, R.string.video_open_failed, Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun classifyBmi(bmi: Double): String = when {
-        bmi < 18.5 -> "\u504F\u7626"
-        bmi < 24.0 -> "\u6B63\u5E38"
-        bmi < 28.0 -> "\u8D85\u91CD"
-        else -> "\u80A5\u80D6"
+    private fun showFollowDurationDialog() {
+        val workout = currentWorkout ?: return
+        val view = LayoutInflater.from(this).inflate(R.layout.dialog_follow_result, null, false)
+        val durationInput = view.findViewById<EditText>(R.id.followDurationInput)
+        val caloriesText = view.findViewById<TextView>(R.id.followCaloriesPreview)
+        val profile = SportsPrefs.getProfile(this)
+        val suggestedMinutes = ((SystemClock.elapsedRealtime() - startedAt) / 60000.0).coerceAtLeast(1.0)
+        durationInput.setText(String.format(Locale.getDefault(), "%.1f", suggestedMinutes))
+
+        fun updatePreview() {
+            val minutes = durationInput.text.toString().toDoubleOrNull() ?: 0.0
+            val calories = if (profile == null) 0.0 else DataTools.estimateCalories(workout.met, profile.weightKg, minutes)
+            caloriesText.text = getString(
+                R.string.video_follow_calories_template,
+                String.format(Locale.getDefault(), "%.0f", calories)
+            )
+        }
+
+        durationInput.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
+            override fun afterTextChanged(s: Editable?) = updatePreview()
+        })
+        updatePreview()
+
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.video_result_title, workout.title))
+            .setView(view)
+            .setPositiveButton(R.string.save_record) { _, _ ->
+                val minutes = durationInput.text.toString().toDoubleOrNull() ?: suggestedMinutes
+                val calories = if (profile == null) 0.0 else DataTools.estimateCalories(workout.met, profile.weightKg, minutes)
+                SportsPrefs.addRecord(
+                    this,
+                    title = workout.title,
+                    detail = getString(
+                        R.string.video_record_detail_template,
+                        workout.detail,
+                        String.format(Locale.getDefault(), "%.1f", minutes)
+                    ),
+                    calories = calories,
+                    durationMinutes = minutes
+                )
+                refreshDataSection()
+                Toast.makeText(this, R.string.record_saved_toast, Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton(R.string.dialog_cancel, null)
+            .show()
     }
 
-    private fun formatOneDecimal(value: Double): String =
-        String.format(Locale.getDefault(), "%.1f", value)
-
-    data class SportActivity(val name: String, val met: Double)
-
-    companion object {
-        private const val KEY_LAST_CHECK_IN_DATE = "last_check_in_date"
-        private const val KEY_STREAK = "streak"
-        private const val KEY_TOTAL_CHECK_IN = "total_check_in"
+    private fun setupRunSection() {
+        findViewById<View>(R.id.openOutdoorRunButton).setOnClickListener {
+            startActivity(
+                Intent(this, RunTrackerActivity::class.java)
+                    .putExtra(RunTrackerActivity.EXTRA_RUN_MODE, RunTrackerActivity.MODE_OUTDOOR)
+            )
+        }
+        findViewById<View>(R.id.openIndoorRunButton).setOnClickListener {
+            startActivity(
+                Intent(this, RunTrackerActivity::class.java)
+                    .putExtra(RunTrackerActivity.EXTRA_RUN_MODE, RunTrackerActivity.MODE_INDOOR)
+            )
+        }
     }
+
+    private fun setupProfileSection() {
+        val nameInput = findViewById<EditText>(R.id.profileNameInput)
+        val heightInput = findViewById<EditText>(R.id.profileHeightInput)
+        val weightInput = findViewById<EditText>(R.id.profileWeightInput)
+        val bmiText = findViewById<TextView>(R.id.profileBmiValue)
+
+        val watcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
+            override fun afterTextChanged(s: Editable?) {
+                val height = heightInput.text.toString().toDoubleOrNull()
+                val weight = weightInput.text.toString().toDoubleOrNull()
+                bmiText.text = if (height == null || weight == null || height <= 0 || weight <= 0) {
+                    getString(R.string.profile_bmi_placeholder)
+                } else {
+                    val bmi = weight / (height / 100).pow(2)
+                    getString(
+                        R.string.profile_bmi_template,
+                        String.format(Locale.getDefault(), "%.1f", bmi),
+                        DataTools.classifyBmi(bmi)
+                    )
+                }
+            }
+        }
+        heightInput.addTextChangedListener(watcher)
+        weightInput.addTextChangedListener(watcher)
+
+        findViewById<View>(R.id.saveProfileButton).setOnClickListener {
+            val name = nameInput.text.toString().trim()
+            val height = heightInput.text.toString().toDoubleOrNull()
+            val weight = weightInput.text.toString().toDoubleOrNull()
+            if (name.isEmpty() || height == null || weight == null || height <= 0 || weight <= 0) {
+                Toast.makeText(this, R.string.profile_invalid_toast, Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            SportsPrefs.saveProfile(this, SportsPrefs.UserProfile(name, height, weight))
+            refreshDataSection()
+            Toast.makeText(this, R.string.profile_saved_toast, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun refreshProfileSection() {
+        val profile = SportsPrefs.getProfile(this) ?: return
+        findViewById<EditText>(R.id.profileNameInput).setText(profile.name)
+        findViewById<EditText>(R.id.profileHeightInput).setText(profile.heightCm.toString())
+        findViewById<EditText>(R.id.profileWeightInput).setText(profile.weightKg.toString())
+        val bmi = profile.weightKg / (profile.heightCm / 100).pow(2)
+        findViewById<TextView>(R.id.profileBmiValue).text = getString(
+            R.string.profile_bmi_template,
+            String.format(Locale.getDefault(), "%.1f", bmi),
+            DataTools.classifyBmi(bmi)
+        )
+    }
+
+    data class Workout(
+        val title: String,
+        val detail: String,
+        val appUri: String,
+        val met: Double
+    )
 }

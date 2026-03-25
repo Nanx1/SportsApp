@@ -1,73 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/surface_bg"
-    android:fillViewport="true">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <com.google.android.material.card.MaterialCardView
+        <ScrollView
+            android:id="@+id/dataSection"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:cardBackgroundColor="@color/hero_bg"
-            app:cardCornerRadius="28dp"
-            app:cardElevation="0dp"
-            app:strokeColor="@color/hero_stroke"
-            app:strokeWidth="1dp">
+            android:layout_height="match_parent"
+            android:paddingStart="18dp"
+            android:paddingTop="42dp"
+            android:paddingEnd="18dp"
+            android:paddingBottom="18dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="24dp">
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/hero_badge"
-                    android:textColor="@color/hero_badge_text"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/hero_title"
-                    android:textColor="@color/hero_text"
-                    android:textSize="28sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/hero_subtitle"
-                    android:textColor="@color/hero_subtext"
-                    android:textSize="14sp" />
-
-                <LinearLayout
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_marginBottom="14dp"
+                    app:cardBackgroundColor="@color/hero_bg"
+                    app:cardCornerRadius="28dp"
+                    app:cardElevation="0dp">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:padding="20dp">
 
                         <TextView
-                            android:id="@+id/weeklyMinutesValue"
+                            android:id="@+id/homeNameValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/hero_text"
@@ -77,185 +50,250 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/weekly_minutes"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/home_subtitle_new"
                             android:textColor="@color/hero_subtext"
-                            android:textSize="12sp" />
+                            android:textSize="14sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/homeTotalCheckInValue"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/hero_text"
+                                    android:textSize="22sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/total_checkin_label"
+                                    android:textColor="@color/hero_subtext"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/homeStreakValue"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/hero_text"
+                                    android:textSize="22sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/checkin_streak_label"
+                                    android:textColor="@color/hero_subtext"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+                        </LinearLayout>
                     </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Widget.Sports.Card">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:padding="20dp">
 
                         <TextView
-                            android:id="@+id/weeklyCaloriesValue"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/hero_text"
-                            android:textSize="24sp"
-                            android:textStyle="bold" />
+                            style="@style/Widget.Sports.SectionTitle"
+                            android:text="@string/home_records_title" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:id="@+id/recordsContainer"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/weekly_calories"
-                            android:textColor="@color/hero_subtext"
-                            android:textSize="12sp" />
+                            android:minHeight="320dp"
+                            android:layout_marginTop="14dp"
+                            android:orientation="vertical" />
                     </LinearLayout>
-                </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Widget.Sports.Card">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+                        <TextView
+                            style="@style/Widget.Sports.SectionTitle"
+                            android:text="@string/data_calc_title" />
+
+                        <Button
+                            android:id="@+id/openBmiToolButton"
+                            style="@style/Widget.Sports.SecondaryButton"
+                            android:layout_marginTop="14dp"
+                            android:text="@string/data_tool_bmi" />
+
+                        <Button
+                            android:id="@+id/openCalorieToolButton"
+                            style="@style/Widget.Sports.SecondaryButton"
+                            android:layout_marginTop="12dp"
+                            android:text="@string/data_tool_calorie" />
+
+                        <Button
+                            android:id="@+id/openForecastToolButton"
+                            style="@style/Widget.Sports.SecondaryButton"
+                            android:layout_marginTop="12dp"
+                            android:text="@string/data_tool_forecast" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
             </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+        </ScrollView>
 
         <LinearLayout
+            android:id="@+id/followSection"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:visibility="gone">
 
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
+            <TextView
+                style="@style/Widget.Sports.SectionTitle"
+                android:text="@string/module_follow_title" />
+
+            <TextView
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                app:cardBackgroundColor="@color/card_bg"
-                app:cardCornerRadius="22dp"
-                app:cardElevation="0dp"
-                app:strokeColor="@color/card_stroke"
-                app:strokeWidth="1dp">
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/module_video_desc"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="18dp">
+            <Button
+                android:id="@+id/t25Button"
+                style="@style/Widget.Sports.PrimaryButton"
+                android:layout_width="240dp"
+                android:layout_marginTop="28dp"
+                android:text="@string/video_t25" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/goal_completion_label"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="12sp" />
+            <Button
+                android:id="@+id/pamelaButton"
+                style="@style/Widget.Sports.PrimaryButton"
+                android:layout_width="240dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/video_pamela" />
 
-                    <TextView
-                        android:id="@+id/goalCompletionValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:textColor="@color/text_primary"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                app:cardBackgroundColor="@color/card_bg"
-                app:cardCornerRadius="22dp"
-                app:cardElevation="0dp"
-                app:strokeColor="@color/card_stroke"
-                app:strokeWidth="1dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="18dp">
-
-                    <TextView
-                        android:id="@+id/streakValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/text_primary"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/checkin_streak_label"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="12sp" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            <Button
+                android:id="@+id/slimLegButton"
+                style="@style/Widget.Sports.PrimaryButton"
+                android:layout_width="240dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/video_slim_leg" />
         </LinearLayout>
 
-        <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.Sports.Card">
+        <LinearLayout
+            android:id="@+id/runSection"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/Widget.Sports.SectionTitle"
+                android:text="@string/module_run_title" />
+
+            <TextView
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/run_tab_desc"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/openOutdoorRunButton"
+                style="@style/Widget.Sports.PrimaryButton"
+                android:layout_width="240dp"
+                android:layout_marginTop="26dp"
+                android:text="@string/run_open_outdoor" />
+
+            <Button
+                android:id="@+id/openIndoorRunButton"
+                style="@style/Widget.Sports.SecondaryButton"
+                android:layout_width="240dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/run_open_indoor" />
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/profileSection"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="24dp"
+            android:paddingTop="74dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="24dp"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
                 <TextView
                     style="@style/Widget.Sports.SectionTitle"
-                    android:text="@string/checkin_section_title" />
+                    android:text="@string/module_profile_title" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="280dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:text="@string/checkin_section_desc"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="@string/profile_subtitle"
                     android:textColor="@color/text_secondary"
                     android:textSize="14sp" />
-
-                <Button
-                    android:id="@+id/checkInButton"
-                    style="@style/Widget.Sports.PrimaryButton"
-                    android:layout_marginTop="18dp"
-                    android:text="@string/checkin_button_ready" />
-
-                <TextView
-                    android:id="@+id/checkInResult"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/totalCheckInValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:textColor="@color/accent_orange"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/total_checkin_label"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.Sports.Card">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <TextView
-                    style="@style/Widget.Sports.SectionTitle"
-                    android:text="@string/bmi_section_title" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.Sports.InputLayout"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="24dp">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/heightInput"
+                        android:id="@+id/profileNameInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/profile_name_hint" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Sports.InputLayout"
+                    android:layout_marginTop="12dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/profileHeightInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/height_hint"
@@ -267,198 +305,42 @@
                     android:layout_marginTop="12dp">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/weightInput"
+                        android:id="@+id/profileWeightInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/weight_hint"
                         android:inputType="numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <Button
-                    android:id="@+id/calculateBmiButton"
-                    style="@style/Widget.Sports.PrimaryButton"
-                    android:layout_marginTop="14dp"
-                    android:text="@string/calculate_bmi" />
-
                 <TextView
-                    android:id="@+id/bmiResult"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="@string/bmi_default_result"
-                    android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.Sports.Card">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <TextView
-                    style="@style/Widget.Sports.SectionTitle"
-                    android:text="@string/calorie_section_title" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.Sports.InputLayout"
-                    android:layout_marginTop="16dp">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/sportTypeInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/sport_type_hint"
-                        android:inputType="none"
-                        android:paddingTop="14dp"
-                        android:paddingBottom="14dp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.Sports.InputLayout"
-                    android:layout_marginTop="12dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/sportWeightInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/weight_hint"
-                        android:inputType="numberDecimal" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.Sports.InputLayout"
-                    android:layout_marginTop="12dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/durationInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/duration_hint"
-                        android:inputType="numberDecimal" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <Button
-                    android:id="@+id/calculateCalorieButton"
-                    style="@style/Widget.Sports.PrimaryButton"
-                    android:layout_marginTop="14dp"
-                    android:text="@string/calculate_calorie" />
-
-                <TextView
-                    android:id="@+id/calorieResult"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="@string/calorie_default_result"
-                    android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.Sports.Card">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <TextView
-                    style="@style/Widget.Sports.SectionTitle"
-                    android:text="@string/stats_section_title" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/progress_exercise"
-                    android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
-
-                <ProgressBar
-                    android:id="@+id/exerciseProgress"
-                    style="?android:attr/progressBarStyleHorizontal"
+                    android:id="@+id/profileBmiValue"
                     android:layout_width="match_parent"
-                    android:layout_height="12dp"
-                    android:layout_marginTop="8dp"
-                    android:max="100"
-                    android:progressTint="@color/accent_green" />
-
-                <TextView
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@string/progress_calorie"
-                    android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
-
-                <ProgressBar
-                    android:id="@+id/calorieProgress"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="12dp"
-                    android:layout_marginTop="8dp"
-                    android:max="100"
-                    android:progressTint="@color/accent_orange" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/progress_checkin"
-                    android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
-
-                <ProgressBar
-                    android:id="@+id/checkInProgress"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="12dp"
-                    android:layout_marginTop="8dp"
-                    android:max="100"
-                    android:progressTint="@color/accent_blue" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.Sports.Card">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <TextView
-                    style="@style/Widget.Sports.SectionTitle"
-                    android:text="@string/video_section_title" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:text="@string/video_section_desc"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="14sp" />
+                    android:gravity="center"
+                    android:text="@string/profile_bmi_placeholder"
+                    android:textColor="@color/accent_green"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
                 <Button
-                    android:id="@+id/openBilibiliButton"
+                    android:id="@+id/saveProfileButton"
                     style="@style/Widget.Sports.PrimaryButton"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/open_bilibili" />
-
-                <Button
-                    android:id="@+id/openBrowserButton"
-                    style="@style/Widget.Sports.SecondaryButton"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/open_browser" />
+                    android:layout_width="240dp"
+                    android:layout_marginTop="18dp"
+                    android:text="@string/profile_save" />
             </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+        </ScrollView>
 
-    </LinearLayout>
-</ScrollView>
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/card_bg"
+        app:itemHorizontalTranslationEnabled="false"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_menu" />
+
+</LinearLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_data"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="@string/nav_data" />
+    <item
+        android:id="@+id/nav_run"
+        android:icon="@android:drawable/ic_menu_mylocation"
+        android:title="@string/nav_run" />
+    <item
+        android:id="@+id/nav_follow"
+        android:icon="@android:drawable/ic_media_play"
+        android:title="@string/nav_follow" />
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="@string/nav_profile" />
+</menu>
